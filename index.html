@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>温馨提示</title>
+    <style>
+        /* 弹窗样式 */
+        .tip-box {
+            position: fixed;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            font-family: "微软雅黑", sans-serif;
+            font-size: 16px;
+            z-index: 9999; /* 置顶显示 */
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        // 提示文字列表
+        const tips = [
+            '多喝水哦~', '保持微笑呀', '每天都要元气满满',
+            '记得吃水果', '保持好心情', '好好爱自己', 
+            '梦想成真', '期待下一次见面', '金榜题名',
+            '顺顺利利', '早点休息', '愿所有烦恼都消失',
+            '别熬夜', '今天过得开心嘛', '天冷了，多穿衣服'
+        ];
+
+        // 背景颜色列表
+        const bgColors = [
+            'lightpink', 'skyblue', 'lightgreen', 'lavender',
+            'lightyellow', 'plum', 'coral', 'bisque', 'aquamarine',
+            'mistyrose', 'honeydew', 'lavenderblush', 'oldlace'
+        ];
+
+        // 创建并显示一个提示弹窗
+        function showWarmTip() {
+            // 创建弹窗元素
+            const tipBox = document.createElement('div');
+            tipBox.className = 'tip-box';
+
+            // 随机选择提示语和背景色
+            tipBox.innerText = tips[Math.floor(Math.random() * tips.length)];
+            tipBox.style.backgroundColor = bgColors[Math.floor(Math.random() * bgColors.length)];
+
+            // 计算随机位置（确保弹窗在屏幕内）
+            const screenWidth = window.innerWidth;
+            const screenHeight = window.innerHeight;
+            const boxWidth = 250;
+            const boxHeight = 60;
+            const x = Math.floor(Math.random() * (screenWidth - boxWidth));
+            const y = Math.floor(Math.random() * (screenHeight - boxHeight));
+
+            // 设置位置
+            tipBox.style.left = `${x}px`;
+            tipBox.style.top = `${y}px`;
+            tipBox.style.width = `${boxWidth}px`;
+            tipBox.style.height = `${boxHeight}px`;
+
+            // 添加到页面
+            document.body.appendChild(tipBox);
+
+            // 5秒后自动关闭（可选，避免页面太乱）
+            setTimeout(() => {
+                tipBox.style.opacity = '0';
+                setTimeout(() => tipBox.remove(), 300);
+            }, 5000);
+        }
+
+        // 批量创建弹窗（调整间隔时间减慢弹出速度）
+        const total = 300; // 弹窗数量
+        const interval = 50; // 每个弹窗的间隔毫秒数（数值越大，弹出越慢）
+        for (let i = 0; i < total; i++) {
+            setTimeout(showWarmTip, i * interval);
+        }
+    </script>
+</body>
+</html>
